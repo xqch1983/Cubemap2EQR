@@ -108,7 +108,22 @@ int main(int argc, char const *argv[])
 	// 2K height
 	cv::imshow("test", *(cubemap->ToEquirectangular(PANORAMA_Height)));
 	cv::waitKey(0);
-
+	// 2K height
+	//cv::namedWindow("test", cv::WINDOW_AUTOSIZE);
+	cv::Mat image;
+	clock_t  clockBegin, clockEnd;
+	clockBegin = clock();
+	 
+	//cubemap->ToEquirectangular_GPU(PANORAMA_Height);//xqc
+	
+	image = *(cubemap->ToEquirectangular(PANORAMA_Height));
+	
+	clockEnd = clock();
+	printf("have passed %d ms\n", clockEnd - clockBegin);
+	cv::imshow("test", image);
+	cv::imwrite("./output/panorama.jpg",image);
+	cv::waitKey(0);
+	//cv::destroyWindow("test");
 
 	/* code */
 	return 0;
